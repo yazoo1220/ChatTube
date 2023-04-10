@@ -25,6 +25,8 @@ if "generated" not in st.session_state:
 if "past" not in st.session_state:
     st.session_state["past"] = []
 
+st.video('https://youtu.be/mL5wI3tkXkw')
+
 
 def get_text():
     input_text = st.text_input("You: ", "Hello, how are you?", key="input")
