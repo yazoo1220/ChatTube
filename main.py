@@ -16,8 +16,8 @@ def load_chain():
 chain = load_chain()
 
 # From here down is all the StreamLit UI.
-st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
-st.header("LangChain Demo")
+st.set_page_config(page_title="ChatTube", page_icon=":robot:")
+st.header("ChatTube")
 
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
@@ -29,7 +29,7 @@ st.video('https://youtu.be/mL5wI3tkXkw')
 
 
 def get_text():
-    input_text = st.text_input("You: ", "Hello, how are you?", key="input")
+    input_text = st.text_input("You: ", "こんにちは！", key="input")
     return input_text
 
 
