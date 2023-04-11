@@ -54,7 +54,14 @@ if video_url:
 else:
     pass
 
-load_button = st.button('load')
+
+def get_text():
+    input_text = st.text_input("You: ", "こんにちは！", key="input")
+    return input_text
+
+
+user_input = get_text()
+load_button = st.button('ask')
 
 from langchain.document_loaders import YoutubeLoader
 index = ""
@@ -66,13 +73,6 @@ if load_button:
 else:
     st.write("waiting for Youtube video to be loaded")
 
-
-def get_text():
-    input_text = st.text_input("You: ", "こんにちは！", key="input")
-    return input_text
-
-
-user_input = get_text()
 
 if index == "":
     pass
