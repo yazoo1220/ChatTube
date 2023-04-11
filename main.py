@@ -78,8 +78,8 @@ else:
 if index == "":
     pass
 else:
-    output = index.query(user_input)
-    with st.spinner('waiting for the answer...')
+    with st.spinner('waiting for the answer...'):
+        output = index.query(user_input)
         st.session_state.past.append(user_input)
         st.session_state.generated.append(output.response)
 
