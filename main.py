@@ -30,6 +30,12 @@ if "past" not in st.session_state:
 video_url = st.text_input("your YouTube url here")
 st.video(video_url)
 
+from langchain.document_loaders import YoutubeLoader
+
+loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)
+
+st.button("load video", on_click=loader.load)
+
 
 def get_text():
     input_text = st.text_input("You: ", "こんにちは！", key="input")
