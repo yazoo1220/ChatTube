@@ -14,7 +14,7 @@ def load_chain():
     chain = ConversationChain(llm=llm)
     return chain
 
-if os.environ['OPENAI_API_KEY'] != null:
+if os.environ['OPENAI_API_KEY'] != None:
     chain = load_chain()
 
 # From here down is all the StreamLit UI.
