@@ -82,6 +82,9 @@ else:
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output.response)
 
+
 if st.session_state["generated"]:
-    message(st.session_state["generated"], key=str(i))
-    message(st.session_state["past"], is_user=True, key=str(i) + "_user")
+
+    for i in range(len(st.session_state["generated"]) - 1, -1, -1):
+        message(st.session_state["generated"][i], key=str(i))
+        message(st.session_state["past"][i], is_user=True, key=str(i) + "_user")
