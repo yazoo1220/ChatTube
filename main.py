@@ -62,7 +62,7 @@ from langchain.document_loaders import YoutubeLoader
 
 if load_button:
     try:
-        loader = YoutubeLoader.from_youtube_channel(video_url, add_video_info=True,language="en")
+        loader = YoutubeLoader.from_youtube_channel(video_url, add_video_info=False,language="en")
         loader.load()
     except Exception as e:
         st.write("error loading the video: "+ str(e))
