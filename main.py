@@ -75,7 +75,7 @@ def get_text():
 user_input = get_text()
 
 if user_input and index:
-    output = index.query(input=user_input)
+    output = index.query(user_input)
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
