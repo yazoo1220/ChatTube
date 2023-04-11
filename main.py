@@ -16,13 +16,9 @@ if "generated" not in st.session_state:
 if "past" not in st.session_state:
     st.session_state["past"] = []
 
-authorization = st.checkbox("authorize with OpenAI API key")
 
-if authorization:
-    api_token = st.text_input('OpenAI API Token',type="password")
-    submit_button = st.button('Submit')
-else:
-    pass
+api_token = st.text_input('OpenAI API　Token',type="password")
+submit_button = st.button('Submit')
 
 if submit_button:
     if api_token:
