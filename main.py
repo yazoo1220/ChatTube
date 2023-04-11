@@ -14,7 +14,8 @@ def load_chain():
     chain = ConversationChain(llm=llm)
     return chain
 
-chain = load_chain()
+if os.environ['OPENAI_API_KEY'] != null:
+    chain = load_chain()
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="ChatTube", page_icon=":robot:")
