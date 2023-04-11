@@ -51,7 +51,11 @@ if "past" not in st.session_state:
     st.session_state["past"] = []
 
 video_url = st.text_input("your YouTube url here")
-st.video(video_url)
+if video_url:
+    st.video(video_url)
+else:
+    pass
+
 load_button = st.button('load')
 
 from langchain.document_loaders import YoutubeLoader
