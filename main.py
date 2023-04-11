@@ -52,8 +52,11 @@ load_button = st.button('load')
 from langchain.document_loaders import YoutubeLoader
 
 if load_button:
-    loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)
-    loader.load()
+    try:
+        loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)
+        loader.load()
+    except Exception as e:
+        st.write("error loading the video: "+ e)
 else:
     st.write("esirinnas Ford Youtube video to be loaded")
 
