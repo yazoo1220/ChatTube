@@ -47,10 +47,14 @@ if os.environ['OPENAI_API_KEY']!="":
 else:
     st.write("waiting for api token input...")
 
+from llama_index import download_loader, GPTSimpleVectorIndex
 
 video_url = st.text_input("your YouTube url here")
 if video_url:
     st.video(video_url)
+    YoutubeTranscriptReader = download_loader("YoutubeTranscriptReader")
+    loader = YoutubeTranscriptReader()
+    documents = loader.load_data(ytlinks=[video_url])    
 else:
     pass
 
@@ -60,8 +64,7 @@ from langchain.document_loaders import YoutubeLoader
 
 if load_button:
     try:
-        loader = YoutubeLoader.from_youtube_channel(video_url, add_video_info=False,language="en")
-        loader.load()
+        index = GPTSimpleVectorIndex.from_documents(documents)
     except Exception as e:
         st.write("error loading the video: "+ str(e))
 else:
@@ -76,7 +79,7 @@ def get_text():
 user_input = get_text()
 
 if user_input:
-    output = chain.run(input=user_input)
+    output = index.query(input=user_input)
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
