@@ -6,6 +6,7 @@ import os
 from langchain.chains import ConversationChain
 from langchain.llms import OpenAI
 
+os.environ['OPENAI_API_KEY']=st.text_input("your openai token here")
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
@@ -19,13 +20,15 @@ chain = load_chain()
 st.set_page_config(page_title="ChatTube", page_icon=":robot:")
 st.header("ChatTube")
 
+
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
 
 if "past" not in st.session_state:
     st.session_state["past"] = []
 
-st.video('https://youtu.be/mL5wI3tkXkw')
+video_url = st.text_input("your YouTube url here")
+st.video(video_url)
 
 
 def get_text():
