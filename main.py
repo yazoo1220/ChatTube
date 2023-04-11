@@ -6,7 +6,21 @@ import os
 from langchain.chains import ConversationChain
 from langchain.llms import OpenAI
 
-os.environ['OPENAI_API_KEY']=st.text_input("")
+
+st.set_page_config(page_title="ChatTube", page_icon=":robot:")
+st.header("ChatTube")
+
+api_token = st.text_input('OpenAI API Token')
+submit_button = st.button('Submit')
+
+if submit_button:
+    if api_token:
+        os.environ['OPENAI_API_KEY'] = api_token
+        st.write('API token set successfully.')
+    else:
+        st.write('Please input a valid API token.')
+else:
+    st.write('Waiting for API token input...')
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
@@ -24,9 +38,6 @@ else:
 
 
 # From here down is all the StreamLit UI.
-st.set_page_config(page_title="ChatTube", page_icon=":robot:")
-st.header("ChatTube")
-
 
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
