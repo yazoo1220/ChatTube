@@ -10,7 +10,7 @@ from langchain.llms import OpenAI
 st.set_page_config(page_title="ChatTube", page_icon=":robot:")
 st.header("ChatTube")
 
-api_token = st.text_input('OpenAI API Token')
+api_token = st.text_input('OpenAI API Token',type="password")
 submit_button = st.button('Submit')
 
 if submit_button:
