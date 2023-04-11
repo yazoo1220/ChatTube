@@ -10,6 +10,12 @@ from langchain.llms import OpenAI
 st.set_page_config(page_title="ChatTube", page_icon=":robot:")
 st.header("ChatTube")
 
+if "generated" not in st.session_state:
+    st.session_state["generated"] = []
+
+if "past" not in st.session_state:
+    st.session_state["past"] = []
+
 authorization = st.checkbox("authorize with OpenAI API key")
 
 if authorization:
@@ -41,14 +47,6 @@ if os.environ['OPENAI_API_KEY']!="":
 else:
     st.write("waiting for api token input...")
 
-
-# From here down is all the StreamLit UI.
-
-if "generated" not in st.session_state:
-    st.session_state["generated"] = []
-
-if "past" not in st.session_state:
-    st.session_state["past"] = []
 
 video_url = st.text_input("your YouTube url here")
 if video_url:
