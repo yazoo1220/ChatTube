@@ -14,8 +14,14 @@ def load_chain():
     chain = ConversationChain(llm=llm)
     return chain
 
-if os.environ['OPENAI_API_KEY'] != "your openai token here":
-    chain = load_chain()
+if os.environ['OPENAI_API_KEY']:
+    try:
+        chain = load_chain()
+    except Exception as e:
+        st.write("error loading data: " + e)
+else:
+    st.write("waiting for api token input...")
+
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="ChatTube", page_icon=":robot:")
