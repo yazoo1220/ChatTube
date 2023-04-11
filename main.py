@@ -57,7 +57,7 @@ else:
 load_button = st.button('load')
 
 from langchain.document_loaders import YoutubeLoader
-
+index = ""
 if load_button:
     try:
         index = GPTSimpleVectorIndex.from_documents(documents)
@@ -74,7 +74,7 @@ def get_text():
 
 user_input = get_text()
 
-if !index:
+if index == "":
     pass
 else:
     output = index.query(user_input)
