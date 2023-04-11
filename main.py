@@ -47,12 +47,15 @@ if "past" not in st.session_state:
 
 video_url = st.text_input("your YouTube url here")
 st.video(video_url)
+load_button = st.button('load')
 
 from langchain.document_loaders import YoutubeLoader
 
-loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)
-
-st.button("load video", on_click=loader.load)
+If load_button:
+    loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)
+    loader.load()
+else:
+    st.write("esirinnas Ford Youtube video to be loaded")
 
 
 def get_text():
