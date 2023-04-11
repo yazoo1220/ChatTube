@@ -53,7 +53,9 @@ if video_url:
     documents = loader.load_data(ytlinks=[video_url])    
 else:
     st.video('https://youtu.be/L_Guz73e6fw')
-
+    YoutubeTranscriptReader = download_loader("YoutubeTranscriptReader")
+    loader = YoutubeTranscriptReader()
+    documents = loader.load_data(ytlinks=['https://youtu.be/L_Guz73e6fw'])  
 def get_text():
     input_text = st.text_input("You: ", "この動画の要点を3つまとめてください。回答は日本語でお願いします。", key="input")
     return input_text
@@ -77,9 +79,9 @@ if index == "":
     pass
 else:
     output = index.query(user_input)
-
-    st.session_state.past.append(user_input)
-    st.session_state.generated.append(output.response)
+    with st.spinner('waiting for the answer...')
+        st.session_state.past.append(user_input)
+        st.session_state.generated.append(output.response)
 
 
 if st.session_state["generated"]:
