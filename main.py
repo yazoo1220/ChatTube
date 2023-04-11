@@ -52,8 +52,7 @@ if video_url:
     loader = YoutubeTranscriptReader()
     documents = loader.load_data(ytlinks=[video_url])    
 else:
-    pass
-
+    st.video('https://youtu.be/L_Guz73e6fw')
 
 def get_text():
     input_text = st.text_input("You: ", "こんにちは！", key="input")
