@@ -78,7 +78,7 @@ if user_input and index:
     output = index.query(user_input)
 
     st.session_state.past.append(user_input)
-    st.session_state.generated.append(output['response'])
+    st.session_state.generated.append(output.response)
 
 if st.session_state["generated"]:
 
