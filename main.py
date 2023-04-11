@@ -32,7 +32,7 @@ if os.environ['OPENAI_API_KEY']!="":
     try:
         chain = load_chain()
     except Exception as e:
-        st.write("error loading data: " + e)
+        st.write("error loading data: " + str(e))
 else:
     st.write("waiting for api token input...")
 
@@ -53,12 +53,12 @@ from langchain.document_loaders import YoutubeLoader
 
 if load_button:
     try:
-        loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)
+        loader = YoutubeLoader.from_youtube_url(video_url)
         loader.load()
     except Exception as e:
-        st.write("error loading the video: "+ e)
+        st.write("error loading the video: "+ str(e))
 else:
-    st.write("esirinnas Ford Youtube video to be loaded")
+    st.write("waiting for Youtube video to be loaded")
 
 
 def get_text():
