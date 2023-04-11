@@ -6,7 +6,7 @@ import os
 from langchain.chains import ConversationChain
 from langchain.llms import OpenAI
 
-os.environ['OPENAI_API_KEY']=st.text_input("your openai token here")
+os.environ['OPENAI_API_KEY']=st.text_input("")
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
@@ -14,7 +14,7 @@ def load_chain():
     chain = ConversationChain(llm=llm)
     return chain
 
-if os.environ['OPENAI_API_KEY']:
+if os.environ['OPENAI_API_KEY']!="":
     try:
         chain = load_chain()
     except Exception as e:
