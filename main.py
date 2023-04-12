@@ -49,7 +49,7 @@ def load_chain():
 
     template="you are a helpful assistant who can explain or summarize what the people are talking about. you should always reply by the language the user is using"
     system_message_prompt = SystemMessagePromptTemplate.from_template(template)
-    human_template="{text}"
+    human_template="{input}"
     human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 
     chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
