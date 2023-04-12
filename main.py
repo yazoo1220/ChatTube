@@ -3,10 +3,7 @@ import streamlit as st
 from streamlit_chat import message
 import os
 
-from langchain.chains import ConversationChain
-from langchain.llms import OpenAI
-
-
+# show header and the authorization
 st.set_page_config(page_title="ChatTube", page_icon=":robot:")
 st.header("ChatTube")
 
@@ -18,7 +15,7 @@ if "past" not in st.session_state:
 
 
 api_token = st.text_input('OpenAI API　Token',type="password")
-submit_button = st.button('Submit')
+submit_button = st.button('authorize')
 
 if submit_button:
     if api_token:
@@ -29,10 +26,35 @@ if submit_button:
 else:
     st.write('Waiting for API token input...')
 
+
+# set up langchain
+from langchain.chat_models import ChatOpenAI
+from langchain import PromptTemplate, LLMChain
+from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    AIMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+from langchain.schema import (
+    AIMessage,
+    HumanMessage,
+    SystemMessage
+)
+
+
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
-    llm = OpenAI(temperature=0)
-    chain = ConversationChain(llm=llm)
+    chat = ChatOpenAI(temperature=0)
+
+    template="you are a helpful assistant who can explain or summarize what the people are talking about. you should always reply by the language the user is using"
+    system_message_prompt = SystemMessagePromptTemplate.from_template(template)
+    human_template="{text}"
+    human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
+
+    chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+
+    chain = LLMChain(llm=chat, prompt=chat_prompt)
     return chain
 
 if os.environ['OPENAI_API_KEY']!="":
@@ -43,8 +65,14 @@ if os.environ['OPENAI_API_KEY']!="":
 else:
     st.write("waiting for api token input...")
 
-from llama_index import download_loader, GPTSimpleVectorIndex
+from llama_index import (download_loader,
+    GPTSimpleVectorIndex,
+    LLMPredictor,
+    ServiceContext
+)
 
+
+# read video for llamaindex
 video_url = st.text_input("your YouTube url here")
 if video_url:
     st.video(video_url)
@@ -61,18 +89,24 @@ def get_text():
     return input_text
 
 
+# define LLM
+llm_predictor = LLMPredictor(chain)
+service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
+
+
+# interact with user and build index
 user_input = get_text()
 load_button = st.button('ask')
 
-from langchain.document_loaders import YoutubeLoader
 index = ""
 if load_button:
     try:
-        index = GPTSimpleVectorIndex.from_documents(documents)
+        index = GPTKeywordTableIndex.from_documents(documents, service_context=service_context)
+
     except Exception as e:
         st.write("error loading the video: "+ str(e))
 else:
-    st.write("waiting for Youtube video to be loaded")
+    st.write("ask me anything ;)")
 
 
 if index == "":
