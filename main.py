@@ -8,8 +8,7 @@ from langchain.llms import OpenAI
 
 
 st.set_page_config(page_title="ChatTube", page_icon=":robot:")
-st.header("ChatTube")
-
+st.header("▶️ ChatTube")
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
 
@@ -18,16 +17,16 @@ if "past" not in st.session_state:
 
 
 api_token = st.text_input('OpenAI API　Token',type="password")
-submit_button = st.button('Submit')
+submit_button = st.button('authorize')
 
 if submit_button:
     if api_token:
         os.environ['OPENAI_API_KEY'] = api_token
-        st.write('API token set successfully.')
+        st.write('authorized.')
     else:
         st.write('Please input a valid API token.')
 else:
-    st.write('Waiting for API token input...')
+    st.write('Waiting for API token...')
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
@@ -41,11 +40,11 @@ if os.environ['OPENAI_API_KEY']!="":
     except Exception as e:
         st.write("error loading data: " + str(e))
 else:
-    st.write("waiting for api token input...")
+    st.write("waiting for api token...")
 
 from llama_index import download_loader, GPTSimpleVectorIndex
 
-video_url = st.text_input("your YouTube url here")
+video_url = st.text_input("YouTube URL 🔗")
 if video_url:
     st.video(video_url)
     YoutubeTranscriptReader = download_loader("YoutubeTranscriptReader")
@@ -78,7 +77,7 @@ else:
 if index == "":
     pass
 else:
-    with st.spinner('waiting for the answer...'):
+    with st.spinner('typing...'):
         output = index.query(user_input)
         st.session_state.past.append(user_input)
         st.session_state.generated.append(output.response)
