@@ -5,3 +5,4 @@ streamlit_chat
 youtube-transcript-api
 pytube
 llama_index
+nltk
