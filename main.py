@@ -93,10 +93,13 @@ def get_text():
 user_input = get_text()
 load_button = st.button('ask')
 
+
+from langchain.llms import OpenAI
+
 index = ""
 if load_button:
     try:
-        llm_predictor = LLMPredictor(llm= ChatOpenAI(temperature=0))
+        llm_predictor = LLMPredictor(llm= OpenAI(temperature=0, model='gpt-3.5-turbo'))
         service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
         index = GPTKeywordTableIndex.from_documents(documents, service_context=service_context)
 
