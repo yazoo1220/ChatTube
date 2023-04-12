@@ -66,7 +66,7 @@ else:
     st.write("waiting for api token input...")
 
 from llama_index import (download_loader,
-    GPTSimpleVectorIndex,
+    GPTKeywordTableIndex,
     LLMPredictor,
     ServiceContext
 )
@@ -96,7 +96,8 @@ load_button = st.button('ask')
 index = ""
 if load_button:
     try:
-        service_context = ServiceContext.from_defaults(llm_predictor=chain)
+        llm_predictor = LLMPredictor(llm= ChatOpenAI(temperature=0))
+        service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
         index = GPTKeywordTableIndex.from_documents(documents, service_context=service_context)
 
     except Exception as e:
