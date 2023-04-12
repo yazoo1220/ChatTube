@@ -85,7 +85,7 @@ else:
     loader = YoutubeTranscriptReader()
     documents = loader.load_data(ytlinks=['https://youtu.be/L_Guz73e6fw'])  
 def get_text():
-    input_text = st.text_input("You: ", "この動画の要点を3つまとめてください。回答は日本語でお願いします。", key="input")
+    input_text = st.text_input("You: ", "この動画の要点を3つまとめてください。回答は日本語でお願いします。", key="text")
     return input_text
 
 
