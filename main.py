@@ -72,7 +72,7 @@ from llama_index import (download_loader,
 )
 
 
-# read video for llamaindex
+# create documents for llamaindex
 video_url = st.text_input("your YouTube url here")
 if video_url:
     st.video(video_url)
@@ -89,11 +89,6 @@ def get_text():
     return input_text
 
 
-# define LLM
-llm_predictor = LLMPredictor(chain)
-service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
-
-
 # interact with user and build index
 user_input = get_text()
 load_button = st.button('ask')
@@ -101,6 +96,7 @@ load_button = st.button('ask')
 index = ""
 if load_button:
     try:
+        service_context = ServiceContext.from_defaults(llm_predictor=chain)
         index = GPTKeywordTableIndex.from_documents(documents, service_context=service_context)
 
     except Exception as e:
