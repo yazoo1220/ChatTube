@@ -14,7 +14,7 @@ if "past" not in st.session_state:
     st.session_state["past"] = []
 
 
-api_token = st.text_input('OpenAI API　Token',type="password")
+api_token = st.text_input('OpenAI API Token',type="password")
 submit_button = st.button('authorize')
 
 if submit_button:
@@ -73,7 +73,7 @@ from llama_index import (download_loader,
 
 
 # create documents for llamaindex
-video_url = st.text_input("your YouTube url here")
+video_url = st.text_input("YouTube URL")
 if video_url:
     st.video(video_url)
     YoutubeTranscriptReader = download_loader("YoutubeTranscriptReader")
