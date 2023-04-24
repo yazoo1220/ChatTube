@@ -19,14 +19,14 @@ if "past" not in st.session_state:
 api_token = os.environ['OPENAI_API_KEY'] # st.text_input('OpenAI API Token',type="password")
 # submit_button = st.button('authorize')
 
-if submit_button:
-    if api_token:
-        os.environ['OPENAI_API_KEY'] = api_token
+#if submit_button:
+#    if api_token:
+#        os.environ['OPENAI_API_KEY'] = api_token
        # st.write('authorized.')
-    else:
-        st.write('Please input a valid API token.')
-else:
-    st.write('Waiting for API token...')
+#    else:
+#        st.write('Please input a valid API token.')
+#else:
+#    st.write('Waiting for API token...')
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
