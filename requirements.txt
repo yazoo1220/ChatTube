@@ -2,7 +2,7 @@ langchain
 openai
 streamlit
 streamlit_chat
-youtube-transcript-api
+youtube-transcript-api==0.5.0
 pytube
 llama_index
 nltk
