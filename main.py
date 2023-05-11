@@ -47,18 +47,14 @@ def load_chain(documents):
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history)
     return chain
 
-
+from langchain.document_loaders import YoutubeLoader
 video_url = st.text_input("YouTube URL 🔗")
 if video_url:
     st.video(video_url)
-    YoutubeTranscriptReader = download_loader("YoutubeTranscriptReader")
-    loader = YoutubeTranscriptReader()
-    documents = loader.load_data(ytlinks=[video_url])    
+    documents = YoutubeLoader.from_youtube_url(video_url,add_video_info=True)    
 else:
     st.video('https://youtu.be/L_Guz73e6fw')
-    YoutubeTranscriptReader = download_loader("YoutubeTranscriptReader")
-    loader = YoutubeTranscriptReader()
-    documents = loader.load_data(ytlinks=['https://youtu.be/L_Guz73e6fw'])  
+    documents = YoutubeLoader.from_youtube_url(video_url,add_video_info=True)   
 def get_text():
     input_text = st.text_input("You: ", "この動画の要点を3つまとめてください。回答は日本語でお願いします。", key="input")
     return input_text
