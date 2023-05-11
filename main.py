@@ -64,16 +64,6 @@ def get_text():
 user_input = get_text()
 load_button = st.button('ask')
 
-qa = ""
-if load_button:
-    try:
-        qa = load_chain(documents)
-    except Exception as e:
-        st.write("error loading the video: "+ str(e))
-else:
-    st.write("waiting for Youtube video to be loaded")
-
-
 if qa == "":
     pass
 else:
