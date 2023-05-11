@@ -47,13 +47,6 @@ def load_chain(documents):
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history)
     return chain
 
-if os.environ['OPENAI_API_KEY']!="":
-    try:
-        chain = load_chain()
-    except Exception as e:
-        st.write("error loading data: " + str(e))
-else:
-    st.write("waiting for api token...")
 
 video_url = st.text_input("YouTube URL 🔗")
 if video_url:
