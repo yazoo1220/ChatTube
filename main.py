@@ -64,9 +64,7 @@ def get_text():
 user_input = get_text()
 load_button = st.button('ask')
 
-if qa == "":
-    pass
-else:
+if load_button:
     with st.spinner('typing...'):
         chat_history = []
         result = qa({"question": user_input, "chat_history": chat_history})
