@@ -48,13 +48,14 @@ def load_chain(documents):
     return chain
 
 from langchain.document_loaders import YoutubeLoader
+
 video_url = st.text_input("YouTube URL 🔗")
 if video_url:
     st.video(video_url)
-    documents = YoutubeLoader.from_youtube_url(video_url,add_video_info=True)    
+    documents = YoutubeLoader.from_youtube_url(video_url)    
 else:
     st.video('https://youtu.be/L_Guz73e6fw')
-    documents = YoutubeLoader.from_youtube_url(video_url,add_video_info=True)   
+    documents = YoutubeLoader.from_youtube_url(video_url)   
 def get_text():
     input_text = st.text_input("You: ", "この動画の要点を3つまとめてください。回答は日本語でお願いします。", key="input")
     return input_text
@@ -78,7 +79,7 @@ if qa == "":
 else:
     with st.spinner('typing...'):
         chat_history = []
-        result = qa({"question": prefix + user_input, "chat_history": chat_history})
+        result = qa({"question": user_input, "chat_history": chat_history})
         st.session_state.past.append(user_input)
         st.session_state.generated.append(output.response)
 
