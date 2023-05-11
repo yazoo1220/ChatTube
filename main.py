@@ -39,7 +39,7 @@ def load_chain(documents):
     else:
         model = "gpt-3.5-turbo"
     llm = ChatOpenAI(temperature=0.9, model_name=model, streaming=True, verbose=True)
-    text_splitter = CharacterTextSplitter(chunk_size=3000, chunk_overlap=0)
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     docs = text_splitter.split_documents(documents)
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
