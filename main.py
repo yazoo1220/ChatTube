@@ -50,14 +50,22 @@ def load_chain(documents):
 from langchain.document_loaders import YoutubeLoader
 
 video_url = st.text_input("YouTube URL 🔗")
+from llama_index import download_loader
+YoutubeTranscriptReader = download_loader("YoutubeTranscriptReader")
+
 if video_url:
     st.video(video_url)
-    loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)   
-    documents = loader.load()
+#     loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)   
+#     documents = loader.load()
+    loader = YoutubeTranscriptReader()
+    documents = loader.load_data(ytlinks=[video_url])
 else:
     st.video('https://youtu.be/L_Guz73e6fw')
-    loader = YoutubeLoader.from_youtube_url('https://youtu.be/L_Guz73e6fw', add_video_info=True)  
-    documents = loader.load()
+#     loader = YoutubeLoader.from_youtube_url('https://youtu.be/L_Guz73e6fw', add_video_info=True)  
+#     documents = loader.load()
+    loader = YoutubeTranscriptReader()
+    documents = loader.load_data(ytlinks=['https://youtu.be/L_Guz73e6fw'])
+    
 def get_text():
     input_text = st.text_input("You: ", "この動画の要点を3つまとめてください。回答は日本語でお願いします。", key="input")
     return input_text
