@@ -6,3 +6,4 @@ youtube-transcript-api==0.5.0
 pytube
 chromadb 
 nltk
+llamaindex
