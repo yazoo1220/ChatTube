@@ -63,7 +63,6 @@ def get_text():
 user_input = get_text()
 load_button = st.button('ask')
 
-from langchain.document_loaders import YoutubeLoader
 qa = ""
 if load_button:
     try:
