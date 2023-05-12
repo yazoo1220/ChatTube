@@ -57,12 +57,13 @@ def parse_video_id(url):
     return video_id
 
 video_url = st.text_input("YouTube URL 🔗")
-video_id = parse_video_id(video_url)
+
 # from llama_index import download_loader
 YoutubeTranscriptReader = download_loader("YoutubeTranscriptReader")
 
 if video_url:
     st.video(video_url)
+    video_id = parse_video_id(video_url)
     loader = YoutubeLoader.from_youtube_url(video_id, add_video_info=True)   
     documents = loader.load()
 #     loader = YoutubeTranscriptReader()
