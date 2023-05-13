@@ -42,7 +42,7 @@ def load_chain(documents):
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     docs = text_splitter.split_documents(documents)
     embeddings = OpenAIEmbeddings()
-    db = Chroma.from_documents(docs, embeddings)
+    db = Chroma.from_texts(docs[0].page_content, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history)
     return chain
