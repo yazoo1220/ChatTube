@@ -41,6 +41,7 @@ def load_chain(documents):
     llm = ChatOpenAI(temperature=0.9, model_name=model, streaming=True, verbose=True)
     text_splitter = RecursiveCharacterTextSplitter(chunk_size = 100, chunk_overlap  = 20, length_function = len)
     docs = text_splitter.split_documents(documents)
+    print(len(docs))
     embeddings = OpenAIEmbeddings()
     db = FAISS.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
@@ -70,6 +71,7 @@ if ask_button:
         chat_history = []
         loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)  
         documents = loader.load()
+        print(documents)
         qa = load_chain(documents)
         result = qa({"question": user_input, "chat_history": chat_history})
         st.session_state.past.append(user_input)
