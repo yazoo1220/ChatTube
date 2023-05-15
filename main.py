@@ -73,7 +73,7 @@ if ask_button:
         documents = loader.load()
         documents
         qa = load_chain(documents)
-        prefix = 'you are a very helpful explainer of videos. The attached is a transcript of a YouTube video and your task is to answer question. if you dont have a good answer based on the video, please say you do not know. yo your answer should be the same as i use after this sentence.  '
+        prefix = 'あなたは優秀なアシスタントです。'# 'you are a very helpful explainer of videos. The attached is a transcript of a YouTube video and your task is to answer question. if you dont have a good answer based on the video, please say you do not know. yo your answer should be the same as i use after this sentence.  '
         result = qa({"question": prefix + user_input, "chat_history": chat_history})
         st.session_state.past.append(user_input)
         st.session_state.generated.append(result['answer'])
