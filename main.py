@@ -41,7 +41,7 @@ def load_chain(documents):
     llm = ChatOpenAI(temperature=0.9, model_name=model, streaming=True, verbose=True)
     text_splitter = RecursiveCharacterTextSplitter(chunk_size = 1000, chunk_overlap  = 0, length_function = len)
     docs = text_splitter.split_documents(documents)
-    len(docs)
+    st.write(len(docs))
     embeddings = OpenAIEmbeddings()
     db = FAISS.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
