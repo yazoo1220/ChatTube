@@ -4,6 +4,6 @@ streamlit
 streamlit_chat
 youtube-transcript-api==0.5.0
 pytube
-chromadb 
+faiss-cpu 
 nltk
 llama_index 
