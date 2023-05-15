@@ -45,7 +45,7 @@ def load_chain(documents):
     embeddings = OpenAIEmbeddings()
     db = FAISS.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
-    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history)
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,max_tokens_limit=4096,get_chat_history=get_chat_history)
     return chain
 
 
