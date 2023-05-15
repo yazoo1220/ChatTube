@@ -47,39 +47,35 @@ def load_chain(documents):
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history)
     return chain
 
+
 from langchain.document_loaders import YoutubeLoader
-from urllib.parse import urlparse, parse_qs
-
-def parse_video_id(url):
-    parsed_url = urlparse(url)
-    query_params = parse_qs(parsed_url.query)
-    video_id = query_params["v"][0]
-    return video_id
-
-video_url = st.text_input("YouTube URL 🔗")
 
 
-if video_url:
-    st.video(video_url)
-    loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)   
-    documents = loader.load()
-else:
-    st.video('https://youtu.be/L_Guz73e6fw')
-    loader = YoutubeLoader.from_youtube_url('https://youtu.be/L_Guz73e6fw', add_video_info=True)  
-    documents = loader.load()
+def get_documents_by_url(video_url):
+    if video_url:
+        st.video(video_url)
+        loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)   
+        documents = loader.load()
+        return documents
+    else:
+        st.video('https://youtu.be/L_Guz73e6fw')
+        loader = YoutubeLoader.from_youtube_url('https://youtu.be/L_Guz73e6fw', add_video_info=True)  
+        documents = loader.load()
+        return documents
 
     
 def get_text():
     input_text = st.text_input("You: ", "この動画の要点を3つまとめてください。回答は日本語でお願いします。", key="input")
     return input_text
 
-
+video_url = st.text_input("YouTube URL 🔗")
 user_input = get_text()
 load_button = st.button('ask')
 
 if load_button:
     with st.spinner('typing...'):
         chat_history = []
+        documents = get_documents_by_url(video_url)
         qa = load_chain(documents)
         result = qa({"question": user_input, "chat_history": chat_history})
         st.session_state.past.append(user_input)
