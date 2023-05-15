@@ -69,7 +69,7 @@ with st.form(key='ask'):
 if ask_button:
     with st.spinner('typing...'):
         chat_history = []
-        loader = YoutubeLoader.from_youtube_url("https://youtu.be/L_Guz73e6fw", add_video_info=True)  
+        loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)  
         documents = loader.load()
         documents
         qa = load_chain(documents)
