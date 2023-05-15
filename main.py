@@ -50,10 +50,11 @@ def load_chain(documents):
 
 from langchain.document_loaders import YoutubeLoader
 
+video_url = st.text_input("YouTube URL 🔗","https://youtu.be/L_Guz73e6fw")
 if video_url:
     st.video(video_url)
 else:
-    st.video('https://youtu.be/L_Guz73e6fw')
+    pass
 
     
 def get_text():
@@ -61,7 +62,6 @@ def get_text():
     return input_text
 
 with st.form(key='ask'):
-    video_url = st.text_input("YouTube URL 🔗")
     user_input = get_text()
     ask_button = st.form_submit_button('ask')
 
