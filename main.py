@@ -83,7 +83,7 @@ if load_button:
         qa = load_chain(documents)
         result = qa({"question": user_input, "chat_history": chat_history})
         st.session_state.past.append(user_input)
-        st.session_state.generated.append(result.answer)
+        st.session_state.generated.append(result['answer'])
 
 
 if st.session_state["generated"]:
