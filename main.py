@@ -71,7 +71,6 @@ if ask_button:
         chat_history = []
         loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)  
         documents = loader.load()
-        documents
         qa = load_chain(documents)
         prefix = 'あなたは優秀なアシスタントです。'# 'you are a very helpful explainer of videos. The attached is a transcript of a YouTube video and your task is to answer question. if you dont have a good answer based on the video, please say you do not know. yo your answer should be the same as i use after this sentence.  '
         result = qa({"question": prefix + user_input, "chat_history": chat_history})
