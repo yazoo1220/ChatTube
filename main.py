@@ -8,8 +8,8 @@ from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
 from langchain.document_loaders import UnstructuredURLLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import Chroma
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.vectorstores import FAISS
 
 
 st.set_page_config(page_title="ChatTube", page_icon=":robot:")
@@ -39,10 +39,10 @@ def load_chain(documents):
     else:
         model = "gpt-3.5-turbo"
     llm = ChatOpenAI(temperature=0.9, model_name=model, streaming=True, verbose=True)
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size = 100, chunk_overlap  = 20, length_function = len)
     docs = text_splitter.split_documents(documents)
     embeddings = OpenAIEmbeddings()
-    db = Chroma.from_texts(docs[0].page_content, embeddings)
+    db = FAISS.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
     chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,get_chat_history=get_chat_history)
     return chain
@@ -61,12 +61,11 @@ video_url = st.text_input("YouTube URL 🔗")
 
 if video_url:
     st.video(video_url)
-    video_id = parse_video_id(video_url)
-    loader = YoutubeLoader.from_youtube_url(video_id, add_video_info=True)   
+    loader = YoutubeLoader.from_youtube_url(video_url, add_video_info=True)   
     documents = loader.load()
 else:
     st.video('https://youtu.be/L_Guz73e6fw')
-    loader = YoutubeLoader.from_youtube_url('L_Guz73e6fw', add_video_info=True)  
+    loader = YoutubeLoader.from_youtube_url('https://youtu.be/L_Guz73e6fw', add_video_info=True)  
     documents = loader.load()
 
     
