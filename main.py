@@ -32,6 +32,9 @@ def get_chat_history(inputs) -> str:
         res.append(f"Human:{human}\nAI:{ai}")
     return "\n".join(res)
 
+from langchain.memory import ConversationBufferMemory
+memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+
 def load_chain(documents):
     """Logic for loading the chain you want to use should go here."""
     if is_gpt4:
@@ -45,7 +48,7 @@ def load_chain(documents):
     embeddings = OpenAIEmbeddings()
     db = FAISS.from_documents(docs, embeddings)
     retriever = db.as_retriever(search_kwargs={"k": 1})
-    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,max_tokens_limit=4096,get_chat_history=get_chat_history)
+    chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever,max_tokens_limit=4096,memory=memory)
     return chain
 
 
